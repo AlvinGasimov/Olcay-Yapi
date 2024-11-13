@@ -28,8 +28,6 @@ venv_backup/
 local_settings.py
 
 # Static and media files
-/static/
-media/
 
 # Compiled files
 *.py[cod]
