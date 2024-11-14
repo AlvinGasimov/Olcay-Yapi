@@ -108,38 +108,19 @@
 				</div>
 				<div class="sponsors-outer">
 					<ul class=" owl-carousel owl-theme smiliar-products">
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img
-										src="https://olcayyapi.com/wp-content/uploads/2023/07/614kyWEGtoL.jpg"
-										alt=""></a></figure>
-						</li>
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img
-										src="https://olcayyapi.com/wp-content/uploads/2023/07/4558_babilon__5_822ed.jpg"
-										alt=""></a></figure>
-						</li>
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img
-										src="https://olcayyapi.com/wp-content/uploads/2023/07/30antiquewhite_a0982.jpg"
-										alt=""></a></figure>
-						</li>
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img
-										src="https://olcayyapi.com/wp-content/uploads/2023/07/belenco-carola-1-scaled.jpg"
-										alt=""></a></figure>
-						</li>
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img src="{% static 'images/clients/5.png' %}" alt=""></a></figure>
-						</li>
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img src="{% static 'images/clients/1.png' %}" alt=""></a></figure>
-						</li>
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img src="{% static 'images/clients/2.png' %}" alt=""></a></figure>
-						</li>
-						<li class="slide-item">
-							<figure class="image-box"><a href="#"><img src="{% static 'images/clients/3.png' %}" alt=""></a></figure>
-						</li>
+                        {% if same_products %}
+                            {% for product in same_products %}
+                                <li class="slide-item">
+                                    <figure class="image-box">
+                                        <a href="{% url 'product:product_detail' product.slug %}">
+                                            <img src="{{ product.image.url }}" alt="">
+                                        </a>
+                                    </figure>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            Bu məhsul üzrə oxşar məhsul yoxdur
+                        {% endif %}
 					</ul>
 				</div>
 

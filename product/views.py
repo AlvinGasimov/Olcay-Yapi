@@ -50,12 +50,14 @@ def product_detail(request, product_slug):
     product = get_object_or_404(Product, slug=product_slug)
     images = ProductImages.objects.filter(product=product)
     current_slug = product.slug
+    same_products = Product.objects.filter(category=product.category).exclude(id=product.id)
     
     context = {
         'product': product,
         'images': images,
         'current_slug' : current_slug,
-        'products' : products
+        'products' : products,
+        "same_products" : same_products
     }
     
     return render(request, 'product-details.html', context)
