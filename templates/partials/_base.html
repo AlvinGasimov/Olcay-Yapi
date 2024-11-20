@@ -1,11 +1,12 @@
 {% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
 
 <!DOCTYPE html>
 <html lang="az">
 
 <head>
 	<meta charset="utf-8">
-	<title>Olcay Yapı | {% block title %} {% endblock %}</title>
+	<title>{% trans "Olcay Yapı" %} | {% block title %} {% endblock %}</title>
 	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
 	<link href="{% static 'plugins/revolution/css/settings.css' %}" rel="stylesheet" type="text/css">
 	<link href="{% static 'plugins/revolution/css/layers.css' %}" rel="stylesheet" type="text/css">
@@ -21,8 +22,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
 </head>
 
 <body>
@@ -47,14 +46,14 @@
 				<form method="get" action="{% url 'product:products' %}">
 					<div class="form-group">
 						<fieldset>
-							<input type="search" class="form-control" name="search" value="{{ query|default:'' }}" placeholder="Search Here" required>
-							<input type="submit" value="Search Now!" class="theme-btn">
+							<input type="search" class="form-control" name="search" value="{{ query|default:'' }}" placeholder="{% trans 'Burada Axtar' %}" required>
+							<input type="submit" value="{% trans 'İndi Axtar!' %}" class="theme-btn">
 						</fieldset>
 					</div>
 				</form>
 
 				<br>
-				<h3>Recent Search Keywords</h3>
+				<h3>{% trans 'Son Axtarış Açar Sözləri' %}</h3>
 				<ul class="recent-searches">
                     {% for product in first_12_products %}
 					    <li><a href="{% url 'product:product_detail' product.slug %}">{{ product.name }}</a></li>
