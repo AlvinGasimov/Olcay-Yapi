@@ -6,7 +6,20 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>{% trans "Olcay Yapı" %} | {% block title %} {% endblock %}</title>
+    <title> {{ ceo.title }} {% block title %} {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ ceo.description|default:'' }}">
+    <meta name="keywords" content="{{ ceo.keywords|default:'' }}">
+    <meta name="author" content="{{ ceo.author|default:'' }}">
+    <meta property="og:title" content="{{ ceo.og_title|default:ceo.title }}">
+    <meta property="og:description" content="{{ ceo.og_description|default:ceo.description }}">
+    <meta property="og:image" content="{{ ceo.og_image.url|default:'' }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="profile">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ ceo.og_title|default:ceo.title }}">
+    <meta name="twitter:description" content="{{ ceo.og_description|default:ceo.description }}">
+    <link rel="icon" href="{{ ceo.favicon.url|default:'' }}" type="image/png">
 	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
 	<link href="{% static 'plugins/revolution/css/settings.css' %}" rel="stylesheet" type="text/css">
 	<link href="{% static 'plugins/revolution/css/layers.css' %}" rel="stylesheet" type="text/css">

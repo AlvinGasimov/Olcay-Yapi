@@ -174,3 +174,21 @@ class Subscribe(models.Model):
         verbose_name_plural = 'Subscribes'
         
         
+class CEO(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    keywords = models.CharField(max_length=200, null=True, blank=True)
+    og_title = models.CharField(max_length=200, null=True, blank=True)
+    og_description = models.TextField(null=True, blank=True)
+    og_image = models.ImageField(upload_to='og_images/', null=True, blank=True)
+    favicon = models.ImageField(upload_to='favicons/', null=True, blank=True)
+    author = models.CharField(max_length=200, null=True, blank=True)
+    position = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='ceo/')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'CEO'
+        verbose_name_plural = 'CEO\'s'

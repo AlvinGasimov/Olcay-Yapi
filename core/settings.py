@@ -22,8 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-m@2p-06qa*u_kphu@sguu331s^#!ib+04e8_md@9uz_q+tkilh'
-SECRET_KEY = getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-m@2p-06qa*u_kphu@sguu331s^#!ib+04e8_md@9uz_q+tkilh'
+# SECRET_KEY = getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,32 +86,32 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-if not DEBUG:
-    DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-    }
-
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': getenv('POSTGRES_DB'),
-            'USER': getenv('POSTGRES_USER'),
-            'PASSWORD': getenv('POSTGRES_PASSWORD'),
-            'HOST': getenv('POSTGRES_HOST'),
-            'PORT': 5432,
-        }
 }
+
+# if not DEBUG:
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+#     }
+
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': getenv('POSTGRES_DB'),
+#             'USER': getenv('POSTGRES_USER'),
+#             'PASSWORD': getenv('POSTGRES_PASSWORD'),
+#             'HOST': getenv('POSTGRES_HOST'),
+#             'PORT': 5432,
+#         }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

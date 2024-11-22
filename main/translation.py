@@ -58,3 +58,7 @@ class WorksTranslationOptions(TranslationOptions):
 class PartnersTranslationOptions(TranslationOptions):
     fields = ('title', )
   
+  
+@register(CEO)
+class CEOTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', 'keywords', 'og_title', 'og_description', 'author', 'position')

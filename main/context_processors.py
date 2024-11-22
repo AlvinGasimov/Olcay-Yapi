@@ -17,6 +17,7 @@ def site_settings(request):
     last_8_portfolios = Portfolio.objects.all().order_by('-created_at')[:8]
     services = Service.objects.all()
     last_6_services = Service.objects.all().order_by('-created_at')[:6]
+    ceo = CEO.objects.last()
     
     context = {
         'navigation_item' : navigation_item,
@@ -31,6 +32,7 @@ def site_settings(request):
         'first_12_products' : first_12_products,
         'last_8_portfolios' : last_8_portfolios,
         'services' : services,
-        'last_6_services' : last_6_services
+        'last_6_services' : last_6_services,
+        'ceo': ceo
     }
     return context
