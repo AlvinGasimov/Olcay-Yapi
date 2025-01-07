@@ -11,10 +11,12 @@ from django.http import HttpResponseRedirect
 from django.urls import resolve, reverse
 from django.urls.exceptions import Resolver404
 from django.utils import translation
+from django.core.paginator import Paginator
 
 def index(request):
     home_items = Home.objects.all()
     statistic_slogans = Statistic.objects.all()
+    video_slider = Slider.objects.order_by('-created_at').first()
     
     if request.method == "POST":
         form = SubscribeForm(request.POST)
@@ -28,7 +30,8 @@ def index(request):
     context = {
         'home_items': home_items,
         'form' : form,
-        'statistic_slogans' : statistic_slogans
+        'statistic_slogans' : statistic_slogans,
+        'video_slider' : video_slider
     }
     
     return render(request, 'index.html', context)
@@ -36,6 +39,21 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def references(request):
+    references = Reference.objects.all().order_by('-created_at')
+    paginator = Paginator(references, 60)
+    
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'references' : references
+    }
+    return render(request, 'references.html', context)
+
 
 
 def set_language(request, language):

@@ -21,9 +21,8 @@ class NavigationItem(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = 'Navigation Item'
-        verbose_name_plural = 'Navigation Items'
-        
+        verbose_name_plural = 'Navigation məlumatları'
+
 
 class Home(models.Model):
     title = models.CharField(max_length=100)
@@ -35,8 +34,18 @@ class Home(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Home'
-        verbose_name_plural = 'Home'
+        verbose_name_plural = 'Ana Səhifə'
+
+class Slider(models.Model):
+    title = models.CharField(max_length=100)
+    video = models.FileField(upload_to='slider_videos/')
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Slider'
 
 
 class About(models.Model):
@@ -49,8 +58,7 @@ class About(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'About'
-        verbose_name_plural = 'About'
+        verbose_name_plural = 'Haqqımızda'
     
 
 class Mission(models.Model):
@@ -63,8 +71,7 @@ class Mission(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Mission'
-        verbose_name_plural = 'Mission'
+        verbose_name_plural = 'Misyonlar'
         
 
 class Vision(models.Model):
@@ -77,8 +84,7 @@ class Vision(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Vision'
-        verbose_name_plural = 'Vision'
+        verbose_name_plural = 'Vizyonlar'
         
         
 class Statistic(models.Model):
@@ -90,8 +96,7 @@ class Statistic(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Statistic'
-        verbose_name_plural = 'Statistic'
+        verbose_name_plural = 'Statistikalar'
         
 
 class StatisticSlogan(models.Model):
@@ -104,8 +109,7 @@ class StatisticSlogan(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Statistic Slogan'
-        verbose_name_plural = 'Statistic Slogan'
+        verbose_name_plural = 'Statistika Sloganları'
 
 
 class FAQ(models.Model):
@@ -119,7 +123,7 @@ class FAQ(models.Model):
 
     class Meta:
         verbose_name = 'FAQ'
-        verbose_name_plural = 'FAQs'
+        verbose_name_plural = 'FAQ-lar'
         
         
 class QuestionAnswer(models.Model):
@@ -132,8 +136,7 @@ class QuestionAnswer(models.Model):
         return self.question
 
     class Meta:
-        verbose_name = 'Question Answer'
-        verbose_name_plural = 'Question Answers'
+        verbose_name_plural = 'Sual Cavablar'
 
 class Works(models.Model):
     title = models.CharField(max_length=100)
@@ -145,8 +148,7 @@ class Works(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Work'
-        verbose_name_plural = 'Works'
+        verbose_name_plural = 'İşlər'
         
 class Partners(models.Model):
     title = models.CharField(max_length=100)
@@ -158,8 +160,7 @@ class Partners(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Partner'
-        verbose_name_plural = 'Partners'
+        verbose_name_plural = 'Partnyolrar'
         
         
 class Subscribe(models.Model):
@@ -170,8 +171,7 @@ class Subscribe(models.Model):
         return self.email
 
     class Meta:
-        verbose_name = 'Subscribe'
-        verbose_name_plural = 'Subscribes'
+        verbose_name_plural = 'Abunələr'
         
         
 class CEO(models.Model):
@@ -191,4 +191,16 @@ class CEO(models.Model):
 
     class Meta:
         verbose_name = 'CEO'
-        verbose_name_plural = 'CEO\'s'
+        verbose_name_plural = 'CEO-lar'
+        
+        
+class Reference(models.Model):
+    name = models.CharField(max_length = 200)
+    image = models.ImageField(upload_to='reference')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Referanslar'

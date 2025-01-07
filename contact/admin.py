@@ -17,3 +17,8 @@ class ContactAdmin(TranslationAdmin):
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
         
+        
+        
+@admin.register(Branch)
+class BranchAdmin(admin.ModelAdmin):
+    list_display = ('title', 'city', 'country', 'phone')

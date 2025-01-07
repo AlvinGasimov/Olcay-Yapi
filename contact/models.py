@@ -15,3 +15,21 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.username} - {self.email}"
+    
+    class Meta:
+        verbose_name_plural = 'Kontaktlar'
+
+
+class Branch(models.Model):
+    title = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    address = models.TextField()
+    phone = models.CharField(max_length=40)
+    
+    def __str__(self):
+        return self.title
+    
+    
+    class Meta:
+        verbose_name_plural = 'Filiallar'

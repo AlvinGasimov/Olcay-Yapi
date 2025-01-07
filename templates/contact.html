@@ -19,6 +19,28 @@
     </div>
 </section>
 
+<div class="contact-address">
+    <div class="container">
+        <div class="row">
+            {% for item in branches %}
+                <div class="col-lg-3 col-sm-6  mb-3">
+                    <div class="single-address">
+                        <a href="#">
+                            <span class="icon icon-pin"></span>
+                            <h6 class="font-weight-bold text-heading-default " style="padding-top:10px;">{{ item.title }}</h6>
+                        </a>
+                        <div class="address text-text-gray text-18">
+                            <a href="#">
+                                {{ item.address}} {{ item.city }}, {{ item.country }}</a><br>
+                            <a href="tel:{{ item.phone }}">{{ item.phone }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <section class="contact-form-section">
     <div class="pattern-layer" style="background-image:url({% static 'images/background/pattern-19.png' %})"></div>
     <div class="auto-container">

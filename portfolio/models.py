@@ -16,7 +16,8 @@ class Portfolio(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
         
-        
+    class Meta:
+        verbose_name_plural = 'Portfoliolar'
 
 class PortfolioImages(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name='images')
@@ -25,3 +26,6 @@ class PortfolioImages(models.Model):
 
     def __str__(self):
         return f"Image for {self.portfolio.title}"
+    
+    class Meta:
+        verbose_name_plural = 'Portfolio şəkilləri'

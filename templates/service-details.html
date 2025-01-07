@@ -59,24 +59,59 @@
                 <div class="blog-detail">
                     <div class="inner-box">
                         <div class="image">
-                            <img src="{{ service.image.url }}" alt="" />
+                            <div class="rev_slider_wrapper fullwidthbanner-container" id="rev_slider_one_wrapper" data-source="gallery">
+                                <div class="video_img_section_wrapper">
+                                    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
+                                        <div class="swiper-wrapper">
+
+                                            {% if service.videos.exists and service.main_images.exists %}
+                                                {% for video in service.videos.all %}
+                                                    <div class="swiper-slide video-slide">
+                                                        <iframe width="560" height="315"
+                                                            src="{{ video.video }}"
+                                                            title="YouTube video player" frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                            allowfullscreen></iframe>
+                                                    </div>
+                                                {% endfor %}
+
+                                                {% for item in service.main_images.all %}
+                                                    <div class="swiper-slide image-slide">
+                                                        <img src="{{ item.image.url }}" alt="Main Image" class="img-fluid" />
+                                                    </div>
+                                                {% endfor %}
+
+                                            {% else %}
+                                                <div class="swiper-slide image-slide">
+                                                    <img src="{{ service.image.url }}" alt="Main Image" class="img-fluid" />
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="lower-content">
                             <div class="upper-box">
-                                <h3>{{ service.name }}</h3>
+                                <h3>{{ service.name}}</h3>
                             </div>
                             <div class="lower-box">
                                 <div class="text">
-                                    <p>{{ service.description }}</p>
+                                    <p>{{ service.description|linebreaks }}</p>
 
                                     <div class="blog-area blog-related-area">
                                         <div class="row post-items-style3">
-                                            {% for image in service.images.all %}
+                                            {% for item in service.images.all %}
                                                 <div class="col-lg-4 col-md-6 col-6">
                                                     <div class="single_related">
                                                         <div class="related_thumb">
-                                                            <a href="{{ image.image.url }}" data-fancybox="blog-images">
-                                                                <img src="{{ image.image.url }}" alt="">
+                                                            <a href="{{ item.image.url }}" data-fancybox="blog-images">
+                                                                <img src="{{ item.image.url }}" alt="">
                                                                 <span class="zoom-icon"><i class="fa fa-search"></i></span>
                                                             </a>
                                                         </div>
@@ -89,12 +124,32 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+
+{% endblock %}
+
+
+{% block script %}
+
+    <script>
+
+    const swiper = new Swiper('.mySwiper2', {
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    </script>
 
 {% endblock %}

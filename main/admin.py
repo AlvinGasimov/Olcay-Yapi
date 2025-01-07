@@ -155,7 +155,7 @@ admin.site.register(Subscribe)
 
 @admin.register(CEO)
 class CEOAdmin(TranslationAdmin):
-    list_display = ('title', 'image')
+    list_display = ('title', 'image', 'favicon')
 
     group_fieldsets = True
     class Media:
@@ -167,3 +167,14 @@ class CEOAdmin(TranslationAdmin):
         css = {
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
+        
+        
+
+@admin.register(Reference)
+class ReferenceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'image', 'created_at')
+    
+    
+@admin.register(Slider)
+class SliderAdmin(admin.ModelAdmin):
+    list_display = ('title', 'video', 'created_at')

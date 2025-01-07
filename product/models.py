@@ -14,6 +14,10 @@ class ProductCategory(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+        
+    
+    class Meta:
+        verbose_name_plural = 'Məhsul Kateqoriyaları'
    
 class ProductBrand(models.Model):
     name = models.CharField(max_length=255)
@@ -28,6 +32,9 @@ class ProductBrand(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+    
+    class Meta:
+        verbose_name_plural = 'Məhsul Brendləri'    
         
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -48,6 +55,9 @@ class Product(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
         
+    class Meta:
+        verbose_name_plural = 'Məhsullar'
+        
         
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_images')
@@ -56,3 +66,6 @@ class ProductImages(models.Model):
 
     def __str__(self):
         return f"Image for {self.product.name}"
+    
+    class Meta:
+        verbose_name_plural = 'Məhsul Şəkilləri'
