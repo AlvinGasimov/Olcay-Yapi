@@ -67,12 +67,6 @@
 
 				<br>
 				<h3>{% trans 'Son Axtarış Açar Sözləri' %}</h3>
-				<ul class="recent-searches">
-                    {% for product in first_12_products %}
-					    <li><a href="{% url 'product:product_detail' product.slug %}">{{ product.name }}</a></li>
-                    {% endfor %}
-				</ul>
-
 			</div>
 
 		</div>
