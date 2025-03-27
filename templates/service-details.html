@@ -1,0 +1,155 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans "Hizmet Detayları" %} {% endblock %}
+
+{% block content %}
+
+<section class="page-title" style="background-image:url({% static 'images/background/31.jpg' %})">
+    <div class="auto-container">
+        <div class="content">
+            <h2>{% trans "Xidmətin detallı səhifəsi" %}</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                <li>{% trans "Xidmətin detallı səhifəsi" %}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="sidebar-side col-lg-4 col-md-4 col-sm-12">
+                <aside class="sidebar padding-right">
+
+                    <div class="sidebar-widget categories">
+                        <div class="sidebar-title">
+                            <h2>{% trans "Digər xidmətlər" %}</h2>
+                        </div>
+                        <ul class="category-list">
+                            {% for service in services %}
+                                <li>
+                                    <a href="{% url 'service:service_detail' service.slug %}">{{ service.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget newsletter-widget">
+                        <div class="widget-content">
+                            <h3>{% trans "Abone olun" %} <span>{% trans "Olcay Yapı Group" %}</span></h3>
+                            <div class="subscribe-form-three">
+                                <form method="post" action="{% url 'main:index' %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="email" name="email" value="" placeholder="{% trans 'Email...' %}" required>
+                                        <button type="submit" class="theme-btn submit-btn"><span class="fa fa-envelope-open"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+
+            <div class="content-side col-lg-8 col-md-8 col-sm-12">
+                <div class="blog-detail">
+                    <div class="inner-box">
+                        <div class="image">
+                            <div class="rev_slider_wrapper fullwidthbanner-container" id="rev_slider_one_wrapper" data-source="gallery">
+                                <div class="video_img_section_wrapper">
+                                    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
+                                        <div class="swiper-wrapper">
+
+                                            {% if service.videos.exists and service.main_images.exists %}
+                                                {% for video in service.videos.all %}
+                                                    <div class="swiper-slide video-slide">
+                                                        <iframe width="560" height="315"
+                                                            src="{{ video.video }}"
+                                                            title="YouTube video player" frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                            allowfullscreen></iframe>
+                                                    </div>
+                                                {% endfor %}
+
+                                                {% for item in service.main_images.all %}
+                                                    <div class="swiper-slide image-slide">
+                                                        <img src="{{ item.image.url }}" alt="Main Image" class="img-fluid" />
+                                                    </div>
+                                                {% endfor %}
+
+                                            {% else %}
+                                                <div class="swiper-slide image-slide">
+                                                    <img src="{{ service.image.url }}" alt="Main Image" class="img-fluid" />
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lower-content">
+                            <div class="upper-box">
+                                <h3>{{ service.name}}</h3>
+                            </div>
+                            <div class="lower-box">
+                                <div class="text">
+                                    <p>{{ service.description|linebreaks }}</p>
+
+                                    <div class="blog-area blog-related-area">
+                                        <div class="row post-items-style3">
+                                            {% for item in service.images.all %}
+                                                <div class="col-lg-4 col-md-6 col-6">
+                                                    <div class="single_related">
+                                                        <div class="related_thumb">
+                                                            <a href="{{ item.image.url }}" data-fancybox="blog-images">
+                                                                <img src="{{ item.image.url }}" alt="">
+                                                                <span class="zoom-icon"><i class="fa fa-search"></i></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block script %}
+
+    <script>
+
+    const swiper = new Swiper('.mySwiper2', {
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,260 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans "Ana Sayfa" %} {% endblock %}
+
+{% block content %}
+
+<section class="main-slider">
+    <div class="rev_slider_wrapper fullwidthbanner-container" id="rev_slider_one_wrapper" data-source="gallery">
+        <div class="video_img_section_wrapper">
+            <div style=" --swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
+                <div class="swiper-wrapper">
+                    {% if video_slider.video %}
+                        <div class="swiper-slide video-slide">
+                            <video src="{{ video_slider.video.url }}" class="video" title="{{ video_slider.title }}" autoplay controls muted></video>
+                        </div>
+                    {% endif %}
+                    
+                    {% for item in home_items %}
+                        <div class="swiper-slide">
+                            <img src="{{ item.image.url }}" />
+                            <div class="main-slider-content">
+                                <h2>{{ item.title }}</h2>
+                                <div class="main-slider-text">
+                                    <p>{{ item.description }}</p>
+                                </div>
+
+                                <a href="{% url 'service:services' %}" class="theme-btn btn-style-one">{% trans "Daha çox" %}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container-fluid mt-5">
+    <div class="pattern-layer paroller" data-paroller-factor="0.10" data-paroller-factor-lg="0.10"
+        data-paroller-factor-md="0.10" data-paroller-factor-sm="0.10" data-paroller-type="foreground"
+        data-paroller-direction="horizontal" style="background-image:url({% static 'images/background/pattern-2.png' %})">
+    </div>
+    <div class="outer-section">
+        <div class="clearfix">
+
+            <div class="left-column">
+                <div class="inner-column clearfix">
+                    <div class="sec-title">
+                        <div class="inner-title">
+                            <div class="title">{% trans "Kateqoriyalar" %}</div>
+                            <h2>{% trans "Məhsulların kateqoriyaları" %}</h2>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <p>{{ about.description|slice:":200" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="inner-column">
+                    <div class="three-item-carousel owl-carousel owl-theme">
+                        {% for category in product_categories %}
+                            <div class="services-block-two">
+                                <div class="inner-box">
+                                    <div class="image">
+                                        <img src="{{ category.image.url }}" alt="">
+                                        <div class="overlay-box">
+                                            <h3><a href="#">{{ category.name }}</a></h3>
+                                            <div class="links-box">
+                                                <a class="link" href="{% url 'product:products' %}?category={{ category.slug }}"><span
+                                                        class="fa fa-link"></span></a>
+                                                <a class="link lightbox-image" href="{{ category.image.url }}"><span
+                                                        class="fa fa-search"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="image-layer" style="background-image:url({% static 'images/background/1.jpg' %})"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="pattern-layer" style="background-image:url({% static 'images/background/pattern-1.png' %})"></div>
+    <div class="auto-container">
+        <div class="title-box">
+            <div class="row clearfix">
+                <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="image">
+                            <img src="{{ about.image.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="sec-title">
+                            <h2>{% trans "Olcay Yapı haqqında" %}</h2>
+                        </div>
+                        <div class="text">
+                            <p>{{ about.description }}</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'main:about' %}" class="theme-btn btn-style-one mt-3">{% trans "Daha çox" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="shop-products-section">
+    <div class="auto-container">
+
+        <div class="sec-title style-two centered">
+            <div class="inner-title">
+                <div class="title">{% trans "Məhsullarımız" %}</div>
+                <h2>{% trans "Məhsullarımızla tanış olun" %}</h2>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            {% for product in first_12_products %}
+                <div class="product-block-four col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="inner-box">
+                        <div class="image">
+                            <a href="{% url 'product:product_detail' product.slug %}">
+                                <img src="{{ product.image.url }}" alt=""></a>
+                        </div>
+                        <div class="lower-content">
+                            <h3>
+                                <a href="{% url 'product:product_detail' product.slug %}">{{ product.description }}</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="btn-box text-center">
+            <a href="{% url 'product:products' %}" class="theme-btn btn-style-two">{% trans "Daha çox bax" %}</a>
+        </div>
+
+    </div>
+</section>
+
+<section class="projects-section">
+    <div class="pattern-layer" style="background-image:url({% static 'images/background/pattern-4.png' %}})"></div>
+    <div class="outer-container">
+        <div class="clearfix">
+            <div class="sec-title centered">
+                <div class="inner-title">
+                    <div class="title">{% trans "Portfolio" %}</div>
+                    <h2>{% trans "Portfolio ilə tanış olun" %}</h2>
+                </div>
+            </div>
+            {% for portfolio in last_8_portfolios %}
+                <div class="column col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="project-block">
+                        <div class="inner-box">
+                            <div class="image">
+                                <img src="{{ portfolio.image.url }}" alt="" />
+                                <div class="overlay-box">
+                                    <div class="overlay-inner">
+                                        <div class="overlay-content">
+                                            <a class="plus" href="{{ portfolio.image.url }}" data-fancybox="gallery-1"
+                                                data-caption=""><span class="flaticon-full-screen"></span></a>
+                                            <h3><a href="{% url 'portfolio:portfolio_detail' portfolio.slug %}">{{ portfolio.description|slice:":15" }}</a></h3>
+                                            <div class="category">{{ portfolio.title }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'portfolio:portfolios' %}" class="theme-btn btn-style-one mt-3 port-more">{% trans "Daha çox" %}</a>
+    </div>
+</section>
+
+<section class="counter-section">
+    <div class="pattern-layer" style="background-image:url({% static 'images/background/pattern-5.png' %})"></div>
+    <div class="auto-container">
+        <div class="sec-title centered">
+            <div class="inner-title">
+                <div class="title">{% trans "Statiskamızla tanış olun" %}</div>
+                <h2>{% trans "Statiskamız" %}</h2>
+            </div>
+        </div>
+
+        <div class="clearfix">
+            {% for item in statistic.slogans.all %}
+                <div class="counter-block col-lg-3 col-md-6 col-sm-12 col-6">
+                    <div class="inner-box row">
+                        <div class="content-box">
+                            <div class="count-box">
+                                <span class="count-text" data-speed="2000" data-stop="{{ item.number }}">0</span>
+                            </div>
+                            <div class="text">{{ item.title }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="sponsors-section">
+    <div class="container">
+        <div class="sec-title centered">
+            <div class="inner-title">
+                <div class="title">{% trans "Partner" %}</div>
+                <h2>{% trans "Partnerlərimizlə tanış olun" %}</h2>
+            </div>
+        </div>
+        <div class="sponsors-outer">
+            <ul class="sponsors-carousel owl-carousel owl-theme">
+                {% for partner in partners %}
+                    <li class="slide-item">
+                        <figure class="image-box">
+                            <a href="{{ partner.url }}"><img src="{{ partner.image.url }}" alt="{{ partner.title }}"></a>
+                        </figure>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+    var swiper2 = new Swiper(".mySwiper2", {
+        spaceBetween: 10,
+        autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
+
+{% endblock %}

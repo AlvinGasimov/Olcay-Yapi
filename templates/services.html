@@ -1,0 +1,54 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
+
+{% block title %} {% trans "Hizmetler" %} {% endblock %}
+
+{% block content %}
+
+<section class="page-title" style="background-image:url({% static 'images/background/20.jpg' %})">
+    <div class="auto-container">
+        <div class="content">
+            <h2>{% trans "Xidmətlər" %}</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                <li>{% trans "Xidmətlər" %}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="services-section-seven">
+    <div class="auto-container">
+        <div class="row clearfix">
+            {% for service in services %}
+                <div class="services-block-six col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <div class="icon-box">
+                                        <span class="icon {{ service.icon }}"></span>
+                                    </div>
+                                    <h3>{{ service.name }}</h3>
+                                </div>
+                                <div class="back">
+                                    <div class="overlay-box">
+                                        <div class="overlay-inner">
+                                            <div class="content">
+                                                <span class="icon {{ service.icon }}"></span>
+                                                <a href="{% url 'service:service_detail' service.slug %}" class="read-more">{% trans "Ətraflı oxu" %}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

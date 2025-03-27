@@ -1,0 +1,89 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+db.sqlite3-journal
+
+# Environments
+env/
+venv/
+ENV/
+VENV/
+venv.bak/
+venv_backup/
+
+# Django specific
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+local_settings.py
+
+# Static and media files
+
+# Compiled files
+*.py[cod]
+*$py.class
+
+# Cache files
+*.cache
+*.mo
+*.swp
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Migrations (optional if you regenerate often)
+*/migrations/*
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# pip environment files
+pip-log.txt
+
+# Virtualenv
+*.env
+.env
+
+# Pytest
+.pytest_cache/
+
+# Celery
+celerybeat-schedule
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+
+# mypy
+.mypy_cache/
+
+# PyCharm
+*.iml
+*.ipr
+*.iws
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+*.rej

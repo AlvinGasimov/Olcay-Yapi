@@ -1,0 +1,144 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
+
+{% block title %} {% trans "Ürün Detalları" %} {% endblock %}
+
+{% block content %}
+
+<section class="page-title" style="background-image:url({% static 'images/background/17.jpg' %})">
+    <div class="auto-container">
+        <div class="content">
+            <h2>{{ product.name }}</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                <li><a href="{% url 'product:brands' %}">{% trans "Məhsulun markası" %}</a></li>
+                <li>{{ product.name }}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="product-details-section">
+    <div class="container">
+        <div class="product-details-wrapper">
+            <div class="row">
+                <div class="col-lg-5 col-md-12">
+                    <div class="video_img_section_wrapper details-slider" data-id="5">
+                        <div style="
+                            --swiper-navigation-color: #fff;
+                            --swiper-pagination-color: #fff;
+                        " class="swiper mySwiper2">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="{{ product.image.url }}" data-fancybox="gallery">
+                                        <img src="{{ product.image.url }}" />
+                                        <div class="fancybox-i">
+                                            <i class="pe-7s-search"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% for image in product.product_images.all %}
+                                    <div class="swiper-slide">
+                                        <a href="{{ image.image.url }}" data-fancybox="gallery">
+                                            <img src="{{ image.image.url }}" alt="{% trans 'Product Image' %}" />
+                                            <div class="fancybox-i">
+                                                <i class="pe-7s-search"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                        <div thumbsSlider="" class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="{{ product.image.url }}" />
+                                </div>
+                                {% for image in product.product_images.all %}
+                                    <div class="swiper-slide">
+                                        <img src="{{ image.image.url }}" />
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="product-details-content">
+                        <h2 class="pb-3">{{ product.name }}</h2>
+                        <div class="mini-desc mb-3">
+                            <p>{{ product.description }}</p>
+                        </div>
+                        <a href="{{ navigation_item.whatsapp_link }}" class="theme-btn wp-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> <span>{% trans "Whatsappdan yaz" %}</span>
+                        </a>
+                    </div>
+                    <h6 class="details-info">
+                        <span>{% trans "Kod:" %}</span>
+                        <span>{{ product.code }}</span>
+                    </h6>
+                    <h6 class="details-info">
+                        <span>{% trans "Kateqoriya:" %}</span>
+                        <span>{{ product.category }}</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sponsors-section smiliar-products-area">
+    <div class="container">
+        <div class="sec-title centered">
+            <div class="inner-title">
+                <div class="title">{% trans "Məhsullar" %}</div>
+                <h2>{% trans "Oxşar Məhsullar" %}</h2>
+            </div>
+        </div>
+        <div class="sponsors-outer">
+            <ul class="owl-carousel owl-theme smiliar-products">
+                {% if same_products %}
+                    {% for product in same_products %}
+                        <li class="slide-item">
+                            <figure class="image-box">
+                                <a href="{% url 'product:product_detail' product.slug %}">
+                                    <img src="{{ product.image.url }}" alt="">
+                                </a>
+                            </figure>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <div>{% trans "Bu məhsul üzrə oxşar məhsul yoxdur" %}</div>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}  
+
+{% block script %}
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 10,
+        slidesPerView: 5,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".mySwiper2", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiper,
+        },
+    });
+</script>
+
+{% endblock %}

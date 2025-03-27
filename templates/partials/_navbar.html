@@ -1,0 +1,163 @@
+{% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
+
+<header class="main-header">
+
+    <div class="header-upper">
+        <div class="outer-container olcay-navbar">
+            <div class="clearfix olcay-navbar-flex">
+
+                <div class="logo-box">
+                    <div class="logo">
+                        <a href="{% url 'main:index' %}"><img src="{{ navigation_item.navbar_img.url }}" alt="{{ navigation_item.title }}" title=""></a>
+                    </div>
+                </div>
+
+                <div class="nav-outer clearfix">
+
+                    <div class="mobile-nav-toggler"><span class="icon flaticon-menu-4"></span></div>
+
+                    <nav class="main-menu navbar-expand-md">
+                        <div class="navbar-header">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <div class="navbar-collapse collapse scroll-nav clearfix" id="navbarSupportedContent">
+                            <ul class="navigation clearfix">
+                                <li class="current"><a href="{% url 'main:index' %}">{% trans 'Ana səhifə' %}</a></li>
+                                <li><a href="{% url 'main:about' %}">{% trans 'Haqqımızda' %}</a></li>
+                                {% comment %} <li class="dropdown"><a href="{% url 'product:categories' %}">{% trans 'Məhsullar' %} <i class="fa fa-chevron-down"></i></a>
+                                    <ul>
+                                        {% for category in product_categories %}
+                                            <li>
+                                                <a href="{% url 'product:products' %}?category={{ category.slug }}">{{ category.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li> {% endcomment %}
+                                <li class="menu-item dropdown">
+                                    <a href="{% url 'product:categories' %}">{% trans 'Məhsullar' %}<i class="fa fa-chevron-down"></i></a>
+                                    <ul class="mega-menu">
+                                        {% for category in product_categories %}
+                                            <li class="brand">
+                                                <a href="{% url 'product:products' %}?category={{ category.slug }}">
+                                                    <div class="prod-category">
+                                                        <h4>{{ category.name }}</h4>
+                                                        <span>İncele <i class="fa fa-chevron-right"></i></span>
+                                                    </div>
+                                                    <img src="{{ category.image.url }}" alt="Vitra">
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="{% url 'service:services' %}">{% trans 'Xidmətlər' %} <i class="fa fa-chevron-down"></i></a>
+                                    <ul>
+                                        {% for service in services %}
+                                            <li>
+                                                <a href="{% url 'service:service_detail' service.slug %}">{{ service.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'portfolio:portfolios' %}">{% trans 'Portfolio' %}</a></li>
+                                <li><a href="{% url 'main:references' %}">{% trans 'Referanslarımız' %}</a></li>
+                                <li><a href="{% url 'contact:contact' %}">{% trans 'Əlaqə' %}</a></li>
+                            </ul>
+                        </div>
+
+                    </nav>
+                    <li class="olcay-lang lang-mobile">
+                        <div class="current-lang"> <a href="{% url 'main:set-language' 'tr' %}">TR </a><i class="fa fa-chevron-down"></i></div>
+                        <ul>
+                            <li><a href="{% url 'main:set-language' 'az' %}">AZ</a></li>
+                            <li><a href="{% url 'main:set-language' 'ru' %}">RU</a></li>
+                            <li><a href="{% url 'main:set-language' 'en' %}">EN</a></li>
+                        </ul>
+                    </li>
+                    <div class="search-box-btn"><span class="icon icon-magnifier"></span></div>
+
+                </div>
+
+                <div class="social-outer-box">
+
+                    <li class="olcay-lang">
+                        <div class="current-lang"><a href="{% url 'main:set-language' 'tr' %}">TR </a><i class="fa fa-chevron-down"></i></div>
+                        <ul>
+                            <li><a href="{% url 'main:set-language' 'az' %}">AZ</a></li>
+                            <li><a href="{% url 'main:set-language' 'ru' %}">RU</a></li>
+                            <li><a href="{% url 'main:set-language' 'en' %}">EN</a></li>
+                        </ul>
+                    </li>
+                    <ul class="social-links ml-4">
+                        {% if navigation_item.facebook_link %}
+                            <li>
+                                <a href="{{ navigation_item.facebook_link }}" target="_blank"><span class="fab fa-facebook-f"></span></a>
+                            </li>
+                        {% endif %}
+
+                        {% if navigation_item.instagram_link %}
+                            <li>
+                                <a href="{{ navigation_item.instagram_link }}" target="_blank"><span class="fab fa-instagram"></span></a>
+                            </li>
+                        {% endif %}
+
+                        {% if navigation_item.telegram_link %}
+                            <li>
+                                <a href="{{ navigation_item.telegram_link }}" target="_blank"><span class="fab fa-telegram"></span></a>
+                            </li>
+                        {% endif %}
+
+                        {% if navigation_item.whatsapp_link %}
+                            <li>
+                                <a href="{{ navigation_item.whatsapp_link }}" target="_blank"><span class="fab fa-whatsapp"></span></a>
+                            </li>
+                        {% endif %}
+
+                        {% if navigation_item.twitter_link %}
+                            <li>
+                                <a href="{{ navigation_item.twitter_link }}" target="_blank"><span class="fab fa-twitter"></span></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky-header">
+        <div class="auto-container clearfix">
+            <div class="logo pull-left">
+                <a href="{% url 'main:index' %}" class="img-responsive">
+                    <img src="{{ navigation_item.navbar_img.url }}" alt="{{ navigation_item.title }}" title="{{ navigation_item.title }}">
+                </a>
+            </div>
+
+            <div class="right-col pull-right">
+                <nav class="main-menu navbar-expand-md">
+                    <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent1">
+                        <ul class="navigation clearfix">
+                        </ul>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mobile-menu">
+        <div class="menu-backdrop"></div>
+        <div class="close-btn"><span class="icon flaticon-cancel-1"></span></div>
+
+        <nav class="menu-box">
+            <div class="nav-logo"><a href="{% url 'main:index' %}"><img src="{{ navigation_item.navbar_img.url }}" alt="" title=""></a>
+            </div>
+        </nav>
+    </div>
+</header>

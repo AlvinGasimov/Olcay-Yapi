@@ -1,0 +1,103 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
+
+{% block title %} {% trans "Portfolio Detalları" %} {% endblock %}
+
+{% block content %}
+
+<section class="page-title" style="background-image:url({% static 'images/background/31.jpg' %})">
+    <div class="auto-container">
+        <div class="content">
+            <h2>{{ portfolio.title }} {% trans "detallı səhifəsi" %}</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                <li>{{ portfolio.title }} {% trans "detallı səhifəsi" %}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                <aside class="sidebar padding-right">
+
+                    <div class="sidebar-widget categories">
+                        <div class="sidebar-title">
+                            <h2>{% trans "Digər xidmətlər" %}</h2>
+                        </div>
+                        <ul class="category-list">
+                            {% for portfolio in portfolios %}
+                                <li class="{% if portfolio.slug == product.slug %}active{% endif %}">
+                                    <a href="{% url 'portfolio:portfolio_detail' portfolio.slug %}">{{ portfolio.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget newsletter-widget">
+                        <div class="widget-content">
+                            <h3>{% trans "Abone olun" %} <span>{% trans "Olcay Yapı Group" %}</span></h3>
+                            <div class="subscribe-form-three">
+                                <form method="post" action="{% url 'main:index' %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="email" name="email" value="" placeholder="{% trans 'Email...' %}" required>
+                                        <button type="submit" class="theme-btn submit-btn"><span class="fa fa-envelope-open"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+
+            <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                <div class="blog-detail">
+                    <div class="inner-box">
+                        <div class="image">
+                            <img src="{{ portfolio.image.url }}" alt="" />
+                        </div>
+                        <div class="lower-content">
+                            <div class="upper-box">
+                                <h3>{{ portfolio.title }}</h3>
+                            </div>
+                            <div class="lower-box">
+                                <div class="text">
+                                    <p>{{ portfolio.description }}</p>
+
+                                    <div class="blog-area blog-related-area">
+                                        <div class="row post-items-style3">
+                                            {% for image in portfolio.images.all %}
+                                                <div class="col-lg-4 col-md-6 col-6">
+                                                    <div class="single_related">
+                                                        <div class="related_thumb">
+                                                            <a href="{{ image.image.url }}"
+                                                                data-fancybox="blog-images">
+                                                                <img src="{{ image.image.url }}" alt="">
+                                                                <span class="zoom-icon"><i
+                                                                        class="fa fa-search"></i></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

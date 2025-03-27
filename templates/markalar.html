@@ -1,0 +1,141 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
+
+{% block title %} {% trans "Markalar" %} {% endblock %}
+
+{% block content %}
+
+<section class="page-title" style="background-image:url({% static 'images/background/20.jpg' %})">
+    <div class="auto-container">
+        <div class="content">
+            <h2>{% trans "Markalar" %}</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                <li><a href="{% url 'product:products' %}">{% trans "Məhsullar" %}</a></li>
+                <li>{% trans "Markalar" %}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="shop-products-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+            {% if page_obj %}
+                {% for brand in page_obj %}
+                    <div class="marka-block marka-block product-block-four col-lg-3 col-md-4 col-sm-6 col-6">
+                        <div class="services-block-two">
+                            <div class="inner-box">
+                                <div class="image">
+                                    <img src="{{ brand.image.url }}" alt="">
+                                    <div class="overlay-box">
+                                        <h3><a href="{% url 'product:products' %}?brand={{ brand.slug }}">{{ brand.name }}</a></h3>
+                                        <div class="links-box">
+                                            <a class="link" href="{% url 'product:products' %}?brand={{ brand.slug }}"><span class="fa fa-link"></span></a>
+                                            <a class="link lightbox-image" href="{{ brand.image.url }}"><span class="fa fa-search"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    {% trans "Hələ marka əlavə edilməyib" %}
+                </div>
+            {% endif %}
+        </div>
+
+        {% if page_obj %}
+            <div class="pagination-area">
+                <div thumbsSlider="" class="swiper mySwiper th-pagination">
+                    <div class="swiper-wrapper">
+                        {% for page_num in page_obj.paginator.page_range %}
+                            <div class="swiper-slide">
+                                <li>
+                                    {% if page_num == page_obj.number %}
+                                        <a class="active" href="?page={{ page_num }}{% if category_filter %}&category={{ category_filter }}{% endif %}">{{ page_num }}</a>
+                                    {% else %}
+                                        <a href="?page={{ page_num }}{% if category_filter %}&category={{ category_filter }}{% endif %}">{{ page_num }}</a>
+                                    {% endif %}
+                                </li>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="swiper-button-prev swiper-button-prev-thumbs"></div>
+                <div class="swiper-button-next swiper-button-next-thumbs"></div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var swiperThumbs = new Swiper(".mySwiper", {
+            spaceBetween: 10,
+            slidesPerView: 5,
+            freeMode: true,
+            watchSlidesProgress: true,
+            navigation: {
+                nextEl: ".swiper-button-next-thumbs",
+                prevEl: ".swiper-button-prev-thumbs",
+            },
+            breakpoints: {
+                576: {
+                    slidesPerView: 5, // Small tablets
+                },
+                768: {
+                    slidesPerView: 6, // Small tablets
+                },
+                992: {
+                    slidesPerView: 6, // Large tablets
+                },
+                1200: {
+                    slidesPerView: 5, // Desktop
+                },
+            },
+            on: {
+                init: function () {
+                    toggleNavigationButtons(this);
+                },
+                resize: function () {
+                    toggleNavigationButtons(this);
+                },
+            }
+        });
+
+        function toggleNavigationButtons(swiper) {
+            // Ensure swiper has fully initialized before querying slides
+            setTimeout(() => {
+                const totalSlides = swiper.slides.length;
+                const visibleSlides = swiper.params.slidesPerView;
+
+                const nextButton = document.querySelector(".swiper-button-next");
+                const prevButton = document.querySelector(".swiper-button-prev");
+
+                if (nextButton && prevButton) {
+                    if (totalSlides <= visibleSlides) {
+                        nextButton.classList.add('dnone');
+                        prevButton.classList.add('dnone');
+                        nextButton.style.display = 'none';
+                        prevButton.style.display = 'none';
+                    } else {
+                        nextButton.style.display = 'block';
+                        prevButton.style.display = 'block';
+                    }
+                } else {
+                    console.error('Navigation buttons not found');
+                }
+            }, 100); // Added a bit more delay to ensure proper rendering
+        }
+    });
+</script>
+
+{% endblock %}

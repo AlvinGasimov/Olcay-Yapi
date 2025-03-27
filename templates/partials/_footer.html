@@ -1,0 +1,147 @@
+{% load static %}
+{% load i18n %}
+
+<section class="newsletter-section">
+    <div class="pattern-layer" style="background-image:url({% static 'images/background/pattern-7.png' %})"></div>
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="title-column col-lg-5 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <h2>{% trans "Olcay Yapı" %}</h2>
+                    <div class="text">
+                        <p>{{ navigation_item.title }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-column col-lg-7 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <h3>{% trans "Saytımıza abone olun" %}</h3>
+                    <div class="subscribe-form">
+                        <form method="post" action="{% url 'main:index' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="email" name="email" value="" placeholder="{% trans 'Email daxil edin' %}" required>
+                                <button type="submit" class="theme-btn btn-style-one">{% trans "Abone ol" %}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="auto-container">
+        <div class="widgets-section">
+            <div class="row clearfix">
+                <div class="big-column col-lg-6 col-md-12 col-sm-6">
+                    <div class="row clearfix">
+                        <div class="footer-column col-lg-7 col-md-6 col-sm-12">
+                            <div class="footer-widget about-widget">
+                                <img src="{{ navigation_item.footer_img.url }}" alt="" class="footer-logo">
+                                <div class="text">
+                                    <p>{{ navigation_item.title }}</p>
+                                </div>
+                                <ul class="social-links">
+                                    {% if navigation_item.facebook_link %}
+                                        <li>
+                                            <a href="{{ navigation_item.facebook_link }}" target="_blank"><span class="fab fa-facebook-f"></span></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if navigation_item.instagram_link %}
+                                        <li>
+                                            <a href="{{ navigation_item.instagram_link }}" target="_blank"><span class="fab fa-instagram"></span></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if navigation_item.telegram_link %}
+                                        <li>
+                                            <a href="{{ navigation_item.telegram_link }}" target="_blank"><span class="fab fa-telegram"></span></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if navigation_item.whatsapp_link %}
+                                        <li>
+                                            <a href="{{ navigation_item.whatsapp_link }}" target="_blank"><span class="fab fa-whatsapp"></span></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if navigation_item.linkedin_link %}
+                                        <li>
+                                            <a href="{{ navigation_item.linkedin_link }}" target="_blank"><span class="fab fa-linkedin"></span></a>
+                                        </li>
+                                    {% endif %}
+                                    {% if navigation_item.twitter_link %}
+                                        <li>
+                                            <a href="{{ navigation_item.twitter_link }}" target="_blank"><span class="fab fa-twitter"></span></a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="footer-column col-lg-5 col-md-6 col-sm-12">
+                            <div class="footer-widget links-widget">
+                                <h2>{% trans "Keçidlər" %}</h2>
+                                <ul class="footer-list">
+                                    <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                                    <li><a href="{% url 'main:about' %}">{% trans "Haqqımızda" %}</a></li>
+                                    <li><a href="{% url 'product:brands' %}">{% trans "Markalar" %}</a></li>
+                                    <li><a href="{% url 'service:services' %}">{% trans "Xidmətlər" %}</a></li>
+                                    <li><a href="{% url 'portfolio:portfolios' %}">{% trans "Portfolio" %}</a></li>
+                                    <li><a href="{% url 'contact:contact' %}">{% trans "Əlaqə" %}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="copyright">
+                        <span>{% trans "Copyright" %}</span> - &copy; <a href="https://khanbutagroup.az/">Khan Buta Group</a>
+                        {% trans "Bütün hüquqlar qorunur." %}
+                    </div>
+                </div>
+
+                <div class="big-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="row clearfix">
+                        <div class="footer-column col-lg-6 col-md-6 col-sm-12">
+                            <div class="footer-widget links-widget">
+                                <h2>{% trans "Xidmətlər" %}</h2>
+                                <ul class="footer-list">
+                                    {% for service in last_6_services %}
+                                        <li>
+                                            <a href="{% url 'service:service_detail' service.slug %}">{{ service.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="footer-column col-lg-6 col-md-6 col-sm-12">
+                            <div class="footer-widget contact-widget">
+                                <h2>{% trans "Əlaqə" %}</h2>
+                                <ul class="contact-list">
+                                    <li>
+                                        <span class="icon icon-pin"></span>
+                                        <div>
+                                            <i>{% trans "Ünvan:" %}</i>
+                                            <a href="#">{{ navigation_item.address }}</a>
+                                        </div>
+                                    </li>
+                                    <li><span class="icon icon-call-in"></span>
+                                        <div>
+                                            <i>{% trans "Telefon:" %}</i>
+                                            <a href="tel:{{ navigation_item.phone_number }}">{{ navigation_item.phone_number }}</a>
+                                        </div>
+                                    </li>
+                                    <li><span class="icon icon-envelope"></span>
+                                        <div>
+                                            <i>{% trans "Email:" %}</i>
+                                            <a href="mailto:{{ navigation_item.email }}">{{ navigation_item.email }}</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

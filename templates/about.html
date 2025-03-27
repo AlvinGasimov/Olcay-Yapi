@@ -1,0 +1,250 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
+
+{% block title %} {% trans "Haqqımızda" %} {% endblock %}
+
+{% block content %}
+
+<section class="page-title" style="background-image:url({% static 'images/background/17.jpg' %})">
+    <div class="auto-container">
+        <div class="content">
+            <h2>{% trans "Olcay Yapı" %}</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                <li>{% trans "Haqqımızda" %}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="pattern-layer" style="background-image:url({% static 'images/background/pattern-1.png' %})"></div>
+    <div class="auto-container">
+        <div class="title-box">
+            <div class="row clearfix">
+                <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="image">
+                            <img src="{{ about.image.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="sec-title">
+                            <h2>{% trans "Olcay Yapı haqqında" %}</h2>
+                        </div>
+                        <div class="text">
+                            <p>{{ about.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="branded-section style-two" style="background-image:url({% static 'images/background/18.jpg' %})">
+    <div class="auto-container">
+        <div class="title-box">
+            <div class="sec-title light">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="title">{% trans "Misyon&Vizyon" %}</div>
+                        <h2>{% trans "Olcay Yapı Group Misyon&Vizyon" %}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lower-section">
+            <div class="row clearfix">
+
+                <div class="brand-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                        <div class="upper-box">
+                            <div class="upper-inner">
+                                <div class="image">
+                                    <img src="{{ mission.image.url }}" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lower-box">
+                            <div class="box-inner">
+                                <h3>{{ mission.title }}</h3>
+                                <div class="text">
+                                    <p>{{ mission.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="brand-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
+                        <div class="upper-box">
+                            <div class="upper-inner">
+                                <div class="image">
+                                    <img src="{{ vision.image.url }}" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lower-box">
+                            <div class="box-inner">
+                                <h3>{{ vision.title }}</h3>
+                                <div class="text">
+                                    <p>{{ vision.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="solution-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <div class="content-column col-lg-6 col-sm-12 col-xs-12">
+                <div class="inner-box">
+                    <div class="sec-title">
+                        <h2>{{ statistic.title }}</h2>
+                    </div>
+                    <div class="text">
+                        <p>{{ statistic.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-column col-lg-6 col-sm-12 col-xs-12">
+                <div class="inner-column">
+
+                    <div class="skills">
+                        {% for slogan in statistic.slogans.all %}
+                            <div class="skill-item">
+                                <div class="skill-header clearfix">
+                                    <div class="skill-title">{{ slogan.title }}</div>
+                                    <div class="skill-percentage">
+                                        <div class="count-box"><span class="count-text" data-speed="2000"
+                                                data-stop="{{ slogan.number }}">0</span>%</div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="bar-inner">
+                                        <div class="bar progress-line" data-width="{{ slogan.number }}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="fluid-section-two">
+    <div class="outer-box clearfix">
+
+        <div class="image-column" style="background-image: url({{ faq.image.url }})">
+            <div class="image">
+                <img src="{{ faq.image.url }}" alt="">
+            </div>
+        </div>
+
+        <div class="content-column">
+            <div class="inner-content wow fadeInRight animated" data-wow-delay="0ms" data-wow-duration="1500ms"
+                style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInRight;">
+                <div class="content">
+
+                    <div class="sec-title">
+                        <div class="inner-title">
+                            <div class="title">{% trans "Sual-cavab" %}</div>
+                            <h2>{% trans "Tez-tez verilən suallar" %}</h2>
+                        </div>
+                    </div>
+
+                    <ul class="accordion-box">
+                        {% for item in faq.question_answers.all %}
+                            <li class="accordion block {% if forloop.first %}active-block{% endif %}">
+                                <div class="acc-btn {% if forloop.first %}active{% endif %}">
+                                    <div class="icon-outer">
+                                        <span class="icon icon-pluss flaticon-plus-symbol"></span>
+                                        <span class="icon icon-minuss flaticon-substract"></span>
+                                    </div>
+                                    {{ item.question }}
+                                </div>
+                                <div class="acc-content {% if forloop.first %}current{% endif %}" style="{% if forloop.first %}display: block;{% else %}display: none;{% endif %};">
+                                    <div class="content">
+                                        <div class="text">
+                                            {{ item.answer }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="services-section">
+    <div class="pattern-layer paroller" data-paroller-factor="0.10" data-paroller-factor-lg="0.10"
+        data-paroller-factor-md="0.10" data-paroller-factor-sm="0.10" data-paroller-type="foreground"
+        data-paroller-direction="horizontal"
+        style="background-image: url(&quot;{% static 'images/background/pattern-9.png' %}&quot;); transform: unset; transition: transform linear; will-change: transform;">
+    </div>
+    <div class="auto-container">
+        <div class="row clearfix">
+            {% for work in works %}
+                <div class="services-block-three col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box wow fadeInLeft animated" data-wow-delay="0ms" data-wow-duration="1500ms"
+                        style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInLeft;">
+                        <div class="icon-box">
+                            <span class="icon {{ work.icon }}"></span>
+                        </div>
+                        <h3><span>{{ work.title }} </span></h3>
+                        <div class="service-number">0{{ forloop.counter }}</div>
+                        <div class="text">{{ work.description }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="sponsors-section">
+    <div class="container">
+        <div class="sec-title centered">
+            <div class="inner-title">
+                <div class="title">{% trans "Partnyorlarımız" %}</div>
+                <h2>{% trans "Partnyorlarımızla tanış olun" %}</h2>
+            </div>
+        </div>
+        <div class="sponsors-outer">
+            <ul class="sponsors-carousel owl-carousel owl-theme">
+                {% for partner in partners %}
+                    <li class="slide-item">
+                        <figure class="image-box">
+                            <a href="{{ partner.url }}"><img src="{{ partner.image.url }}" alt="{{ partner.title }}"></a>
+                        </figure>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

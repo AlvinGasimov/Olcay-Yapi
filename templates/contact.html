@@ -1,0 +1,170 @@
+{% extends "partials/_base.html" %}
+{% load static %}
+{% load i18n %}  <!-- i18n modulunu yükləyin -->
+
+{% block title %} {% trans "İletişim" %} {% endblock %}
+
+{% block content %}
+
+<section class="page-title" style="background-image:url({% static 'images/background/20.jpg' %})">
+    <div class="auto-container">
+        <div class="content">
+            <h2>{% trans "Əlaqə" %}</h2>
+
+            <ul class="page-breadcrumb">
+                <li><a href="{% url 'main:index' %}">{% trans "Ana səhifə" %}</a></li>
+                <li>{% trans "Əlaqə" %}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="contact-address">
+    <div class="container">
+        <div class="row">
+            {% for item in branches %}
+                <div class="col-lg-3 col-sm-6  mb-3">
+                    <div class="single-address">
+                        <a href="#">
+                            <span class="icon icon-pin"></span>
+                            <h6 class="font-weight-bold text-heading-default " style="padding-top:10px;">{{ item.title }}</h6>
+                        </a>
+                        <div class="address text-text-gray text-18">
+                            <a href="#">
+                                {{ item.address}} {{ item.city }}, {{ item.country }}</a><br>
+                            <a href="tel:{{ item.phone }}">{{ item.phone }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<section class="contact-form-section">
+    <div class="pattern-layer" style="background-image:url({% static 'images/background/pattern-19.png' %})"></div>
+    <div class="auto-container">
+        <div class="sec-title centered">
+            <div class="inner-title">
+                <div class="title">{% trans "Əlaqə" %}</div>
+                <h2>{% trans "Bizə müraciət" %}</h2>
+            </div>
+        </div>
+
+        <div class="contact-form">
+
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="row clearfix">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        {{ form.phone.label_tag }}
+                        <div class="input-group">
+                            <span class="countrycode">+994</span>
+                            {{ form.phone }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        {{ form.architect_status.label_tag }}
+                        {{ form.architect_status }}
+                    </div>
+
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                        {{ form.message.label_tag }}
+                        {{ form.message }}
+                    </div>
+
+                    <div class="form-group text-center col-lg-12 col-md-12 col-sm-12">
+                        <button class="theme-btn btn-style-one" type="submit" name="submit-form">{% trans "Göndər" %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<section class="contact-info-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="column col-lg-6 col-md-12 col-sm-12">
+                <div class="sec-title style-three">
+                    <div class="inner-title">
+                        <h2>{% trans "London Office" %}</h2>
+                    </div>
+                </div>
+                <ul class="list-style-two">
+                    <li><span class="icon icon-pin"></span> <i>{% trans "Ünvan:" %}</i>
+                        <a href="#">{{ navigation_item.address }}</a>
+                    </li>
+                    <li><span class="icon icon-call-in"></span> <i>{% trans "Telefon:" %}</i>
+                        <a href="tel:{{ navigation_item.phone_number }}">{{ navigation_item.phone_number }}</a>
+                    </li>
+                    <li><span class="icon icon-envelope"></span> <i>{% trans "Email:" %}</i><a
+                            href="mailto:{{ navigation_item.email }}">{{ navigation_item.email }}</a></li>
+                </ul>
+            </div>
+
+            <div class="social-box column col-lg-6 col-md-12 col-sm-12">
+                <ul class="social-links">
+                    {% if navigation_item.facebook_link %}
+                        <li>
+                            <a href="{{ navigation_item.facebook_link }}" target="_blank"><span class="fab fa-facebook-f"></span></a>
+                        </li>
+                    {% endif %}
+
+                    {% if navigation_item.instagram_link %}
+                        <li>
+                            <a href="{{ navigation_item.instagram_link }}" target="_blank"><span class="fab fa-instagram"></span></a>
+                        </li>
+                    {% endif %}
+
+                    {% if navigation_item.telegram_link %}
+                        <li>
+                            <a href="{{ navigation_item.telegram_link }}" target="_blank"><span class="fab fa-telegram"></span></a>
+                        </li>
+                    {% endif %}
+
+                    {% if navigation_item.whatsapp_link %}
+                        <li>
+                            <a href="{{ navigation_item.whatsapp_link }}" target="_blank"><span class="fab fa-whatsapp"></span></a>
+                        </li>
+                    {% endif %}
+
+                    {% if navigation_item.linkedin_link %}
+                        <li>
+                            <a href="{{ navigation_item.linkedin_link }}" target="_blank"><span class="fab fa-linkedin"></span></a>
+                        </li>
+                    {% endif %}
+
+                    {% if navigation_item.twitter_link %}
+                        <li>
+                            <a href="{{ navigation_item.twitter_link }}" target="_blank"><span class="fab fa-twitter"></span></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="map-section">
+    <div class="map-outer">
+        <iframe
+            src="{{ navigation_item.map_link }}"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+{% endblock %}
